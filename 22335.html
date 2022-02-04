@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <script src="script/jquery-3.6.0.min.js"></script>
+    <script src="script/JQueryCookie/jquery.cookie.js"></script>
+    <script src="script/vue.min.js"></script>
+    <script src="script/tool.js"></script>
+    <script src="script/index.js"></script>
+    <title>addon</title>
+    <style>
+      .atitle {
+        color: #ffffff;
+      }
+      .Intr {
+        color: #ffffff;
+      }
+      .inst {
+        position: relative;
+        height: 32px;
+        width: 96px;
+        font-size: 16px;
+      }
+      button{
+        width: 200px;
+        height: 30px;
+        color:white;
+        background-color:cornflowerblue;
+        border-radius: 3px;
+        border-width: 0;
+        margin: 0;
+        outline: none;
+        font-family: KaiTi;
+        font-size: 17px;
+        text-align: center;
+        cursor: pointer;
+      }
+      button:hover{
+        background-color: antiquewhite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <div class="Title">
+        <p class="Title2"><a href="//guthub.com/xireiki" style="color: #ffffff">XiReiki</a> | 脚本安装</p>
+      </div>
+      <div class="menuButton">
+        <p id="menubutton"class="fa fa-indent" style="float: right;"><!-- 菜单 --></p>
+      </div>
+    </div>
+    <div class="menuOptions">
+      <li class="menuOption"><a href="#">主页</a></li>
+      <li class="menuOption"><a href="#tool">工具</a></li>
+      <li class="menuOption"><a href="#setting">设置</a></li>
+      <li class="menuOption"><a href="#about">关于</a></li>
+    </div>
+    <script>
+      (function(){
+        $(".menuOptions").click(function(){
+          $(".menuOptions").stop().slideUp();
+          $("#menubutton").addClass("fa-indent").removeClass("fa-outdent");
+        });
+        $("#menubutton").click(function(){
+          $(".menuOptions").stop().slideToggle().addClass("Change");
+          $("#menubutton").toggleClass("fa-indent").toggleClass("fa-outdent");
+          $(".menu").addClass("ChangeColor");
+        });
+      })();
+    </script>
+    <p style="height: 45px; visibility: hidden;">占位元素</p>
+    <div id="tool">
+      <h1>工具</p>
+    </div>
+    <div id="setting">
+      <h1>设置</p>
+      <h2>通用</h2>
+      <li>背景图片<input type="checkbox" name="bg" /><button id="hexu" onclick="禾煦();">下载</button></li>
+      <li>背景优化<input type="checkbox" name="bgOptimize" /></li>
+      <h2>背景</h2>
+      <li>
+        修改图片
+        <form class="backgroundFrom">
+          <input id="background" type="file" name="background" />
+          <input type="button" value="修改" onclick="submitBackground();" />
+          <input type="button" value="清除" onclick="clearBackground();" />
+        </form>
+      </li>
+    </div>
+    <div id="about">
+      <h1>关于</p>
+      <p>你好，我是<a href="https://github.com/xireiki">xireiki</a>，这是我自学开发的页面，虽然只是我的练手之作，也请你不要盗用，谢谢。</p>
+    </div>
+    <div>
+      <h1 class="atitle">蓝奏云快速下载</h1>
+      <p class="Intr">简介：本脚本的作用是在你打开蓝奏云界面时，帮你快速下载文件，无需手动点击。在链接末尾添加 ?pwd=密码 （密码是你的蓝奏云分享链接密码）可以自动下载有密码的蓝奏云分享链接，如果无法获得密码，会弹出输入框，请求你输入密码。</p>
+      <p class="Intr">安装：<button class="inst" onclick="toggleScript()">点击安装</button></p>
+    </div>
+    <script>
+      var Base64 = {
+        _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+        encode: function(input) {
+          var output = "";
+          var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+          var i = 0;
+          input = this._utf8_encode(input);
+          while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+              enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+              enc4 = 64;
+            }
+            output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+          }
+          return output;
+        },
+        _utf8_encode: function(string) {
+          string = string.replace(/\r\n/g, "\n");
+          var utftext = "";
+          for (var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+              utftext += String.fromCharCode(c);
+            } else if ((c > 127) && (c < 2048)) {
+              utftext += String.fromCharCode((c >> 6) | 192);
+              utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+              utftext += String.fromCharCode((c >> 12) | 224);
+              utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+              utftext += String.fromCharCode((c & 63) | 128);
+            }
+          }
+          return utftext;
+        }
+      }
+      function toggleScript(){
+        scriptIdList = window.via.getInstalledAddonID();
+        if (scriptIdList.indexOf(scriptId) === -1){
+          xhr = (window.XMLHttpRequest)?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHttp");
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                if (xhr.status === 200){
+                  date = JSON.parse(xhr.responseText);
+                  window.via.addon(Base64.encode(JSON.stringify({"id": date["id"], "name": date["name"], "author": date["author"], "url": date["url"], "code": date["code"]})));
+                }
+            }
+          }
+          xhr.open("get", "./addons/" + scriptId + ".json");
+          xhr.send();
+        } else {
+          xhr = (window.XMLHttpRequest)?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHttp");
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                if (xhr.status === 200){
+                  date = JSON.parse(xhr.responseText);
+                  window.via.addon(Base64.encode(JSON.stringify({"id": date["id"], "name": date["name"], "author": date["author"], "url": date["url"], "code": date["code"]})));
+                }
+            }
+          }
+          xhr.open("get", "./addons/" + scriptId + ".json");
+          xhr.send();
+        }
+      }
+      scriptId = 22335; // 脚本ID
+    </script>
+    <p id="copyright" class="copyright copytext"><a href="https://github.com/xireiki" style="color: #ffffff">&copy;禾煦</a> | @2021</p>
+    <script>
+      (function(){
+        $("#copyright").click(function(){
+          alert("未备案，请放心");
+        });
+        setting();
+      })();
+    </script>
+  </body>
+</html>

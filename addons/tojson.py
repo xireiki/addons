@@ -18,4 +18,4 @@ if __name__ == "__main__" and len(sys.argv) == 7:
         "code": base64.b64encode(c.read()).decode()
       }, ensure_ascii=False));
 elif __name__ == "__main__":
-  print("python tojson.py <name> <id> <author> <version> <url> <code>");
+  print("python tojson.py <id> <name> <author> <version> <url> <code>");
